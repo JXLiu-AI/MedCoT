@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Dataset: R-SLAKE (closed-end)
+
+# Method: Explanation
+CUDA_VISIBLE_DEVICES=0,1,2,3 python closed_end_train.py --dataset slake --method Explanation --epoch 300 --lr 5e-4 --bs 8 --source_len 512 --target_len 256 --train_text_file_path data/R-SLAKE/closed_end/train.json --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_closed_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python closed_end_generate.py --dataset slake --method Explanation --bs 8 --source_len 512 --target_len 256 --text_file_path data/R-SLAKE/closed_end/test.json --model_path slake_closed_end_experiments/Explanation --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_closed_end_experiments
+# Method: Reasoning
+CUDA_VISIBLE_DEVICES=0,1,2,3 python closed_end_train.py --dataset slake --method Reasoning --epoch 300 --lr 5e-4 --bs 8 --source_len 512 --target_len 256 --train_text_file_path data/R-SLAKE/closed_end/train.json --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_closed_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python closed_end_generate.py --dataset slake --method Reasoning --bs 8 --source_len 512 --target_len 256 --text_file_path data/R-SLAKE/closed_end/test.json --model_path slake_closed_end_experiments/Reasoning --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_closed_end_experiments
+# Method: Two-Stage Reasoning
+CUDA_VISIBLE_DEVICES=0,1,2,3 python closed_end_train.py --dataset slake --method First-Stage_Reasoning --epoch 300 --lr 5e-4 --bs 8 --source_len 512 --target_len 256 --train_text_file_path data/R-SLAKE/closed_end/train.json --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_closed_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python closed_end_generate.py --dataset slake --method First-Stage_Reasoning --bs 8 --source_len 512 --target_len 256 --text_file_path data/R-SLAKE/closed_end/train.json --model_path slake_closed_end_experiments/First-Stage_Reasoning --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_closed_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python closed_end_generate.py --dataset slake --method First-Stage_Reasoning --bs 8 --source_len 512 --target_len 256 --text_file_path data/R-SLAKE/closed_end/test.json --model_path slake_closed_end_experiments/First-Stage_Reasoning --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_closed_end_experiments
+CUDA_VISIBLE_DEVICES=0,1,2,3 python closed_end_train.py --dataset slake --method Second-Stage_Reasoning --epoch 20 --lr 5e-5 --bs 8 --source_len 512 --target_len 32 --train_text_file_path slake_closed_end_experiments/First-Stage_Reasoning/train.json --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_closed_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python closed_end_generate.py --dataset slake --method Second-Stage_Reasoning --bs 8 --source_len 512 --target_len 32 --text_file_path slake_closed_end_experiments/First-Stage_Reasoning/test.json --model_path slake_closed_end_experiments/Second-Stage_Reasoning --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_closed_end_experiments
+# Method: without_R
+CUDA_VISIBLE_DEVICES=0,1,2,3 python closed_end_train.py --dataset slake --method without_R --epoch 300 --lr 5e-4 --bs 8 --source_len 512 --target_len 32 --train_text_file_path data/R-SLAKE/closed_end/train.json --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_closed_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python closed_end_generate.py --dataset slake --method without_R --bs 8 --source_len 512 --target_len 32 --text_file_path data/R-SLAKE/closed_end/test.json --model_path slake_closed_end_experiments/without_R --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_closed_end_experiments
+
+
+
+
+# Dataset: R-SLAKE (open-end)
+
+# Method: Explanation
+CUDA_VISIBLE_DEVICES=0,1,2,3 python open_end_train.py --dataset slake --method Explanation --epoch 300 --lr 5e-4 --bs 8 --source_len 512 --target_len 256 --train_text_file_path data/R-SLAKE/open_end/train.json --img_file_path data/R-SLAKE/detr.pth -img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_open_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python open_end_generate.py --dataset slake --method Explanation --bs 8 --source_len 512 --target_len 256 --text_file_path data/R-SLAKE/open_end/test.json --model_path slake_open_end_experiments/Explanation --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_open_end_experiments
+# Method: Reasoning
+CUDA_VISIBLE_DEVICES=0,1,2,3 python open_end_train.py --dataset slake --method Reasoning --epoch 300 --lr 5e-4 --bs 8 --source_len 512 --target_len 256 --train_text_file_path data/R-SLAKE/open_end/train.json --img_file_path data/R-SLAKE/detr.pth -img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_open_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python open_end_generate.py --dataset slake --method Reasoning --bs 8 --source_len 512 --target_len 256 --text_file_path data/R-SLAKE/open_end/test.json --model_path slake_open_end_experiments/Reasoning --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_open_end_experiments
+# Method: Two-Stage Reasoning
+CUDA_VISIBLE_DEVICES=0,1,2,3 python open_end_train.py --dataset slake --method First-Stage_Reasoning --epoch 300 --lr 5e-4 --bs 8 --source_len 512 --target_len 256 --train_text_file_path data/R-SLAKE/open_end/train.json --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_open_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python open_end_generate.py --dataset slake --method First-Stage_Reasoning --bs 8 --source_len 512 --target_len 256 --text_file_path data/R-SLAKE/open_end/train.json --model_path slake_open_end_experiments/First-Stage_Reasoning --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_open_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python open_end_generate.py --dataset slake --method First-Stage_Reasoning --bs 8 --source_len 512 --target_len 256 --text_file_path data/R-SLAKE/open_end/test.json --model_path slake_open_end_experiments/First-Stage_Reasoning --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_open_end_experiments
+CUDA_VISIBLE_DEVICES=0,1,2,3 python open_end_train.py --dataset slake --method Second-Stage_Reasoning --epoch 20 --lr 5e-5 --bs 8 --source_len 512 --target_len 32 --train_text_file_path slake_open_end_experiments/First-Stage_Reasoning/train.json --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --pretrained_model_path unifiedqa-t5-base --output_dir slake_open_end_experiments
+CUDA_VISIBLE_DEVICES=0,1 python open_end_generate.py --dataset slake --method Second-Stage_Reasoning --bs 8 --source_len 512 --target_len 32 --text_file_path slake_open_end_experiments/First-Stage_Reasoning/test.json --model_path slake_open_end_experiments/Second-Stage_Reasoning --img_file_path data/R-SLAKE/detr.pth --img_name_map data/R-SLAKE/name_map.json --output_dir slake_open_end_experiments
+
+
+
+
+
+
+

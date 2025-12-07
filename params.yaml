@@ -1,0 +1,18 @@
+feature_extraction:
+  model_name: 'cooelf/detr_resnet101_dc5'
+train_evaluate_baseline_classifiers:
+  random_state: 42
+  
+  #use_rationale: True
+  
+  #img_type: 'detr'
+  
+  #use_rationale: True
+  #img_type: 'detr'
+  
+  #use_rationale: True
+  #img_type: 'clip'
+  
+  #use_rationale: True
+  #img_type: 'vit'
+  
