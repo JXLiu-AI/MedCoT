@@ -41,7 +41,7 @@ class MoELayer(nn.Module):
 
     def forward(self, x):
         batch_size, seq_len, feature_dim = x.size()
-        # 将输入重塑为 (batch_size * seq_len, feature_dim)
+
         x_reshaped = x.view(-1, feature_dim)
         
         gate_scores = self.gate(x_reshaped)
@@ -51,7 +51,7 @@ class MoELayer(nn.Module):
         
         output = torch.einsum('be,bef->bf', gate_scores, expert_outputs)
         
-        # 将输出重塑回 (batch_size, seq_len, output_dim)
+
         output = output.view(batch_size, seq_len, -1)
         return output
 
@@ -329,7 +329,7 @@ class JointEncoder(T5Stack):
         # merge = torch.cat([hidden_states, image_att], dim=-1)
         # gate = self.sigmoid(self.gate_dense(merge))
         # hidden_states = (1 - gate) * hidden_states + gate * image_att
-        # 之前的代码保持不变，这部分代码展示了如何在文本和图像特征处理之后应用MoE层
+
 
         image_embedding = self.image_dense(image_ids)
         image_att, _ = self.mha_layer(hidden_states, image_embedding, image_embedding)
@@ -338,11 +338,11 @@ class JointEncoder(T5Stack):
         gate = self.sigmoid(self.gate_dense(merge))
         hidden_states = (1 - gate) * hidden_states + gate * image_att
 
-        # 应用MoE层处理hidden_states
-        moe_output = self.moe_layer(hidden_states)  # 这是新增的代码行，应用MoE层
-        hidden_states = moe_output  # 使用MoE层的输出更新hidden_states，这是另一个新增的代码行
+        
+        moe_output = self.moe_layer(hidden_states)  
+        hidden_states = moe_output  
 
-        # 使用更新后的hidden_states进行后续处理...
+
         hidden_states = self.final_layer_norm(hidden_states)
         hidden_states = self.dropout(hidden_states)
 
