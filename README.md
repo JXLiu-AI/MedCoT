@@ -9,7 +9,7 @@ MedCoT is a novel framework for Medical Visual Question Answering (Med-VQA) that
 Key features:
 - **Sparse Mixture of Experts (MoE)**: Integrates a `TopKSparseMoELayer` to adaptively fuse visual and textual features, allowing the model to specialize in different types of medical questions.
 - **Two-Stage Reasoning**: Generates rationales first, then infers the final answer based on the generated rationale and the original input.
-- **Unified Architecture**: Built upon the UnifiedQA-T5 backbone.
+- **Unified Architecture**: Built upon the T5 backbone.
 
 <img width="805" height="218" alt="image" src="https://github.com/user-attachments/assets/4ce53d20-118b-4523-aa44-0f8af533d283" />
 
