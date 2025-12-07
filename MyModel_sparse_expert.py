@@ -74,7 +74,7 @@ class JointEncoder(T5Stack):
         self.gate_dense = nn.Linear(2 * config.hidden_size, config.hidden_size)
         self.sigmoid = nn.Sigmoid()
 
-        # 替换为稀疏MoE层
+        
         self.moe_layer = TopKSparseMoELayer(num_experts=num_experts, input_dim=expert_input_dim,
                                             hidden_dim=expert_hidden_dim, output_dim=expert_output_dim, top_k=top_k)
 
@@ -323,9 +323,9 @@ class JointEncoder(T5Stack):
         # merge = torch.cat([hidden_states, image_att], dim=-1)
         # gate = self.sigmoid(self.gate_dense(merge))
         # hidden_states = (1 - gate) * hidden_states + gate * image_att
-        # 之前的代码保持不变，这部分代码展示了如何在文本和图像特征处理之后应用MoE层
+        
 
-        # 图像嵌入和注意力合并逻辑保持不变
+        
         image_embedding = self.image_dense(image_ids)
         image_att, _ = self.mha_layer(hidden_states, image_embedding, image_embedding)
 
@@ -333,7 +333,7 @@ class JointEncoder(T5Stack):
         gate = self.sigmoid(self.gate_dense(merge))
         hidden_states = (1 - gate) * hidden_states + gate * image_att
 
-        # 使用稀疏MoE层处理hidden_states
+        
         moe_output = self.moe_layer(hidden_states)
         hidden_states = moe_output
 
