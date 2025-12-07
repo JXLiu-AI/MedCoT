@@ -33,8 +33,8 @@ def extract_keywords(_args):
 
 if __name__ == "__main__":
     parse = argparse.ArgumentParser()
-    parse.add_argument('--file_path', type=str, default='/home/chenyizhou/mm_cot/VQA-RAD_ByUs/without_open/V2/cap_trainset.json')
-    parse.add_argument('--output_file_path', type=str, default='/home/chenyizhou/mm_cot/VQA-RAD_ByUs/without_open/V2/cap_trainset.json')
+    parse.add_argument('--file_path', type=str, default='/cap_trainset.json')
+    parse.add_argument('--output_file_path', type=str, default='/cap_trainset.json')
     parse.add_argument('--question', action='store_true', default=False)
     parse.add_argument('--answer', action='store_true', default=False)
     parse.add_argument('--caption', action='store_true', default=False)
