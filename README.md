@@ -129,3 +129,19 @@ For open-ended question answering tasks:
 python OpenEndTrain.py --dataset_type rad --answer_first --rational ...
 ```
 Refer to `OpenEnd.sh` for configurations like `--answer_first` (predict answer then rationale) or standard order.
+
+## Citation
+
+If you find this code useful for your research, please cite our paper:
+
+```bibtex
+@inproceedings{liu2024medcot,
+  title={MedCoT: Medical Chain of Thought via Hierarchical Expert},
+  author={Liu, Jiaxiang and Wang, Yuan and Du, Jiawei and Zhou, Joey and Liu, Zuozhu},
+  booktitle={Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing},
+  pages={17371--17389},
+  year={2024}
+}
+
+
+```
