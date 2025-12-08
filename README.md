@@ -1,6 +1,6 @@
 # MedCoT: Medical Chain-of-Thought
 
-This repository contains the code for the paper **"MedCoT: Medical Chain of Thought via Hierarchical Expert"** (EMNLP 2024).
+This repository contains the code for the paper **["MedCoT: Medical Chain of Thought via Hierarchical Expert"](https://arxiv.org/pdf/2412.13736)** (EMNLP 2024).
 
 ## Introduction
 
